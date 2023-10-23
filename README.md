@@ -1,6 +1,55 @@
-# psfieldgenerate
+# PowerScribe AutoText Field Generator
 
-# psReport Class PowerScribe AutoText Field Generator
+This command-line program is designed to generate PowerScribe AutoText fields from RSNA RDE (Radiological Society of North America Report Data Elements) or RDES (Report Data Element Sets) using JSON files. It operates by utilizing JSON files available from [radelement.org](https://www.radelement.org/) and relies on the `psReport` class provided by the `psReportGenerator.py` script. The program is a rough proof of concept and has been tested with Python 3.10.7 on a 64-bit Windows 11 environment and PowerScribe version 4.0 SP1 (build 7.0.111.20) as of November 2022.
+
+## Usage
+
+### Prerequisites
+
+Before using this program, ensure you have the required JSON files containing RSNA RDE or RDES data. You can obtain these files from [radelement.org](https://www.radelement.org/). Alternatively you can use the included script download_sets.py to batch download them.  
+
+### Command-Line Arguments
+
+The program accepts the following command-line arguments:
+
+- `--jsonfile`: The path to a JSON file containing a single RSNA RDE or RDES. If provided, the program will generate an AutoText based on this file.
+- `--inputfolder`: The path to a folder containing multiple JSON files. If provided, the program will attempt to generate AutoTexts for all the JSON files in the folder.
+- `--outputfolder`: The folder where the generated RTF files will be saved. If not provided, the RTF files will be saved in the current directory.
+- `--prefix`: An optional flag. If specified, a prefix followed by a semicolon will be added before each field in the generated AutoText.
+
+### Output
+
+The program will generate AutoTexts in Rich Text Format (RTF) files. Each RTF file will be named based on the RDE's ID and saved in the output folder.
+
+## Example
+
+To generate an AutoText from a single JSON file and specify a prefix for the fields, you can use the following command:
+
+```bash
+python power_scribe_autotext_generator.py --jsonfile input.json --outputfolder output --prefix
+```
+
+This will generate an RTF file in the "output" folder, incorporating the specified prefix.
+
+To process all JSON files in a folder, use the `--inputfolder` argument:
+
+```bash
+python power_scribe_autotext_generator.py --inputfolder input_folder --outputfolder output --prefix
+```
+
+This command will create RTF files for each JSON file in the "input_folder" and save them in the "output" folder.
+
+## Notes
+
+- The program removes newline and tab characters from the JSON to prevent formatting issues. However, be aware that in some rare instances, these characters may be desired.
+
+- Default values for different field types are as follows:
+  - Numeric: 0
+  - String: ""
+  - PickList: Chooses the first value in the list
+
+
+# psReport Class 
 
 This Python class, `psReport`, is a utility for generating PowerScribe reports with AutoText fields. It is a rough proof of concept that supports "Text," "Numeric," and "PickList" field types. It has been tested with Python 3.10.7 on a 64-bit Windows 11 environment and PowerScribe version 4.0 SP1 (build 7.0.111.20) as of November 2022.
 
@@ -13,8 +62,6 @@ The `psReport` class represents when instantiated represents an entire PowerScri
 - Outputting an RTF file as either bytes or text
 
 ## Usage
-
-To use this class, follow these steps:
 
 1. **Initialization**: Create an instance of the `psReport` class, optionally specifying the report name.
 
