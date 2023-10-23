@@ -1,16 +1,16 @@
 # psfieldgenerate
 
-# PowerScribe AutoText Field Generator
+# psReport Class PowerScribe AutoText Field Generator
 
-This Python class, `psReport`, is a utility for generating PowerScribe AutoText fields. It is a rough proof of concept that supports "Text," "Numeric," and "PickList" field types. It has been tested with Python 3.10.7 on a 64-bit Windows 11 environment and PowerScribe version 4.0 SP1 (build 7.0.111.20) as of November 2022.
+This Python class, `psReport`, is a utility for generating PowerScribe reports with AutoText fields. It is a rough proof of concept that supports "Text," "Numeric," and "PickList" field types. It has been tested with Python 3.10.7 on a 64-bit Windows 11 environment and PowerScribe version 4.0 SP1 (build 7.0.111.20) as of November 2022.
 
 ## Overview
 
-The `psReport` class represents an entire PowerScribe report or AutoText. It allows you to add plain text and various types of fields to the report. The class takes care of generating the necessary Rich Text Format (RTF) and XML elements to create the AutoText. The primary features of this class are as follows:
+The `psReport` class represents when instantiated represents an entire PowerScribe report (and/or AutoText). It allows you to add plain text and various types of fields to the report. The class takes care of generating the necessary Rich Text Format (RTF) and XML elements to create the final RTF file, which can then be dragged and dropped into Powerscribe or loaded separately. The primary features of this class are as follows:
 
-- Adding plain text to the report.
-- Generating RTF for various field types ("Text," "Numeric," and "PickList").
-- Creating XML elements to describe the fields within the AutoText.
+- Adding plain text blocks to the report.
+- Generating the necessary RTF and XML for various field types ("Text," "Numeric," and "PickList").
+- Outputting an RTF file as either bytes or text
 
 ## Usage
 
