@@ -1,25 +1,33 @@
-# PowerScribe AutoText Field Generator
+# psfieldgenerate
 
-This command-line program is designed to generate PowerScribe AutoText fields from RSNA RDE (Radiological Society of North America Report Data Elements) or RDES (Report Data Element Sets) using JSON files. It operates by utilizing JSON files available from [radelement.org](https://www.radelement.org/) and relies on the `psReport` class provided by the `psReportGenerator.py` script. The program is a rough proof of concept and has been tested with Python 3.10.7 on a 64-bit Windows 11 environment and PowerScribe version 4.0 SP1 (build 7.0.111.20) as of November 2022.
+This project consists of three python scripts, and will be presented as part of an Education Exhibit at [RSNA 2023](https://www.rsna.org/annual-meeting). 
+
+- `psReportGenerator.py` - a python class for dynamic generation of Powerscribe reports/macros
+- `rdeToPsReport.py` - python command line script to convert RadElement.org json into Powerscribe reports/macros via psReportGenerator class above
+- `downloadSets.py` - a script to batch download elements from [radelement.org](https://www.radelement.org/) 
+
+# rdeToPsReport.py
+
+This command-line program is designed to generate PowerScribe AutoText fields from RSNA RDE (Radiological Society of North America Report Data Elements) or RDES (Report Data Element Sets). It utilizes JSON files from [radelement.org](https://www.radelement.org/) and relies on the `psReport` class provided by the included `psReportGenerator.py` script. The program is a rough proof of concept and was tested with Python 3.10.7 on a 64-bit Windows 11 environment and PowerScribe version 4.0 SP1 (build 7.0.111.20) as of November 2022.
 
 ## Usage
 
 ### Prerequisites
 
-Before using this program, ensure you have the required JSON files containing RSNA RDE or RDES data. You can obtain these files from [radelement.org](https://www.radelement.org/). Alternatively you can use the included script download_sets.py to batch download them.  
+Before using this program, ensure you have the required JSON files containing RSNA RDE or RDES data. You can obtain these files from [radelement.org](https://www.radelement.org/). Alternatively you can use the included script `download_sets.py` to batch download them.
 
 ### Command-Line Arguments
 
 The program accepts the following command-line arguments:
 
-- `--jsonfile`: The path to a JSON file containing a single RSNA RDE or RDES. If provided, the program will generate an AutoText based on this file.
+- `--jsonfile`: The path to a JSON file containing a single RSNA RDE or RDES. If provided, the program will generate an AutoText based on this file. Alternatively specify an input folder to specify a folder of json files.
 - `--inputfolder`: The path to a folder containing multiple JSON files. If provided, the program will attempt to generate AutoTexts for all the JSON files in the folder.
 - `--outputfolder`: The folder where the generated RTF files will be saved. If not provided, the RTF files will be saved in the current directory.
-- `--prefix`: An optional flag. If specified, a prefix followed by a semicolon will be added before each field in the generated AutoText.
+- `--prefix`: An optional flag. If specified, a prefix followed by a semicolon will be added before each field in the generated AutoText. This is likely always desired. 
 
 ### Output
 
-The program will generate AutoTexts in Rich Text Format (RTF) files. Each RTF file will be named based on the RDE's ID and saved in the output folder.
+The program will generate AutoTexts in Rich Text Format (RTF). Each RTF file will be named based on the RDE's ID and saved in the specified output folder.
 
 ## Example
 
@@ -41,15 +49,15 @@ This command will create RTF files for each JSON file in the "input_folder" and 
 
 ## Notes
 
-- The program removes newline and tab characters from the JSON to prevent formatting issues. However, be aware that in some rare instances, these characters may be desired.
+- The program removes all newline and tab characters from the JSON to prevent formatting issues. However, be aware that in some rare instances, these characters may be desired.
 
-- Default values for different field types are as follows:
+- Default field selections for different field types are as follows:
   - Numeric: 0
   - String: ""
   - PickList: Chooses the first value in the list
 
 
-# psReport Class 
+# `psReportGenerator.py` psReport Class 
 
 This Python class, `psReport`, is a utility for generating PowerScribe reports with AutoText fields. It is a rough proof of concept that supports "Text," "Numeric," and "PickList" field types. It has been tested with Python 3.10.7 on a 64-bit Windows 11 environment and PowerScribe version 4.0 SP1 (build 7.0.111.20) as of November 2022.
 
@@ -93,17 +101,16 @@ The `psReport` class represents when instantiated represents an entire PowerScri
     rtf_bytes = auto_text.outputBytes()
     rtf_text = auto_text.outputText()
     ```
-
-5. **Saving to a File**: You can save the AutoText to an RTF file using the `outputFile` method.
-
-    ```python
-    auto_text.outputFile(filename='output_folder/my_report.rtf')
-    ```
-
-6. **XML Preview**: To see the XML representation of the AutoText, you can use the `printXML` method.
+5. **XML Preview**: To see the XML representation of the AutoText, you can use the `printXML` method.
 
     ```python
     auto_text.printXML()
+    ```
+    
+7. **Saving to a File**: You can save the AutoText to an RTF file using the `outputFile` method.
+
+    ```python
+    auto_text.outputFile(filename='output_folder/my_report.rtf')
     ```
 
 ## Example
