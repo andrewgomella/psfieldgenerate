@@ -142,3 +142,6 @@ auto_text.outputFile(filename='output_folder/my_report.rtf')
 This will create an AutoText with plain text and a PickList field and save it as an RTF file.
 
 Please note that this is a basic implementation and may require further customization to meet specific AutoText requirements in PowerScribe. The class generates RTF and XML structures that are used in PowerScribe, and additional customization may be needed for more complex AutoText templates.
+
+## Credit
+Thanks to Adam Flanders, MD, both for the original idea/concept and help testing this project. 
