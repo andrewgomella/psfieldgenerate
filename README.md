@@ -27,7 +27,7 @@ The program accepts the following command-line arguments:
 
 ### Output
 
-The program will generate AutoTexts in Rich Text Format (RTF). Each RTF file will be named based on the RDE's ID and saved in the specified output folder.
+The program will generate Rich Text Format (RTF) compatible with Powerscribe. Each RTF file will be named based on the RDE's ID and saved in the specified output folder.
 
 ## Example
 
